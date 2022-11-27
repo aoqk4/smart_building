@@ -47,7 +47,7 @@ app.get("/api/temper", (req, res) => {
 
 app.get("/api/roomdata", (req, res) => {
   connection.query(
-    `select * from building_sensor where room = ${req.query.room} order by uTime desc limit 5`,
+    `select * from building_sensor order by uTime desc limit 5`,
     (err, rows) => {
       res.json({
         data: rows,
