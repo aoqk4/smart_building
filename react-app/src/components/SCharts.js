@@ -11,10 +11,16 @@ import {
 } from "recharts";
 
 const cosAxisTick = (tickItem) => {
-  if (tickItem <= 500) {
+  if (tickItem <= 150) {
     return "안전";
   }
-  return "주의";
+  if (tickItem <= 300) {
+    return "주의 1";
+  }
+  if (tickItem <= 450) {
+    return "주의 2";
+  }
+  return "위험";
 };
 
 export const SCharts = (props) => {
@@ -83,15 +89,17 @@ export const SCharts = (props) => {
     getSensor("co2");
     getRoomData();
   }, 5000);
+
   function Unix_timestamp(t) {
     let date = new Date(t * 1000);
     let hour = "" + date.getHours();
     let minute = "" + date.getMinutes();
     let second = "" + date.getSeconds();
-    if (minute.length === 2) {
+    if (minute.length === 1) {
       return (
         hour.substring(-2) +
         ":" +
+        "0" +
         minute.substring(-2) +
         ":" +
         second.substring(-2)
@@ -119,7 +127,6 @@ export const SCharts = (props) => {
       return (
         hour.substring(-2) +
         ":" +
-        "0" +
         minute.substring(-2) +
         ":" +
         second.substring(-2)
@@ -414,11 +421,19 @@ export const SCharts = (props) => {
         <thead className="text-white">
           <tr>
             <td className="bg-black border-white border-2 pl-6">Time</td>
-            <td className="bg-black border-white border-2 pl-6">Room</td>
-            <td className="bg-red-500 border-white border-2 pl-6">Co2</td>
-            <td className="bg-orange-500 border-white border-2 pl-6">Humi</td>
-            <td className="bg-yellow-500 border-white border-2 pl-6">Light</td>
-            <td className="bg-green-500 border-white border-2 pl-6">Temp</td>
+            <td className="bg-black border-white border-2 pl-6">Room ( 호 )</td>
+            <td className="bg-red-500 border-white border-2 pl-6">
+              Co2 ( PPM )
+            </td>
+            <td className="bg-orange-500 border-white border-2 pl-6">
+              Humi ( % )
+            </td>
+            <td className="bg-yellow-500 border-white border-2 pl-6">
+              Light ( LX )
+            </td>
+            <td className="bg-green-500 border-white border-2 pl-6">
+              Temp ( ℃ )
+            </td>
           </tr>
         </thead>
         <tbody>
